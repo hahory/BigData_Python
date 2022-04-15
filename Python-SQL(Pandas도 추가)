@@ -1,0 +1,36 @@
+#pip intall pymysql로 설치
+# 1. PyMySql모듈을 import
+import pymysql
+
+# 2. MySQL 연결:pymysql.Connect()
+#호스트명, 로그인, 암호, 접속할 DB 등 지정
+con=pymysql.Connect(host='localhost', user='root', password='mysql2022'
+                    , db='sqldb', charset='utf8')
+                    
+# 3. DB커서 객체생성: Connection 객체로부터 cursor() 호출                    
+cur=con.cursor()
+
+# 4. SQL문 실행
+sql='select userID, name from usertbl'
+cur.execute(sql)
+
+# 데이터 Fetch
+rows=cur.fetchall()
+
+#가지고 온 데이터를 출력
+print(rows)
+
+# 5. DB연결 종료: Connection객체의 close()
+con.close()
+
+------------------------------------------------------------------------------
+# pip intall pymysql로 설치
+# pip intall pandas로 설치
+# 1. PyMySql모듈을 import & pandas모듈을 설치
+import pymysql
+import pandas as pd
+
+# 가지고 온 데이터를 출력
+#print(rows)대신
+customers=pd.DataFrame(rows)
+print(customers)
