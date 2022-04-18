@@ -1,0 +1,25 @@
+#라이브러리로 불러오기
+import urllib.request as req
+
+#url과 저장경로 지정하기
+url='http://uta.pw/shodou/img/28/214.png'
+savename='test.png'
+
+#다운로드
+req.urlretrieve(url,savename)
+print('저장완료')
+
+--------------------------------------------------
+import urllib.request as req
+
+#url과 저장경로 지정하기
+url='http://uta.pw/shodou/img/28/214.png'
+savename='test.png'
+
+#다운로드-데이터를 파이썬 메모리 위에 올리기(변수에 저장해서 활용할 수 있게 만든다)
+mem=req.urlopen(url).read()
+
+#파일로 저장하기(with문은 파일을 열고 작업하고 닫는 작업까지 하므로 close가 필요없음)
+with open(savename, mode='wb') as f:
+    f.write(mem)
+    print('저장완료')
