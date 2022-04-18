@@ -1,0 +1,17 @@
+from bs4 import BeautifulSoup
+import urllib.request as req
+from urllib import parse
+
+#url 뒤쪽 한글부분은 keyWord로 처리하여, 이 keyword를 원래 url에 붙여 새로운 url을 선언
+url='https://ko.wikisource.org/wiki/'
+keyWord='저자:윤동주'
+url=url+parse.quote(keyWord)
+
+res=req.urlopen(url)
+
+soup=BeautifulSoup(res, 'html.parser')
+
+a_list=soup.select('#mw-content-text > div > ul > li a')
+for a in a_list:
+    name=a.string
+    print('-', name)
