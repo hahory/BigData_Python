@@ -1,0 +1,13 @@
+from selenium import webdriver
+
+url='https://shopping.naver.com/home/p/index.naver'
+options=webdriver.ChromeOptions()
+options.add_argument('window-size=1024,768')
+
+driver=webdriver.Chrome('C:\Anaconda3\chromedriver_win32/chromedriver.exe', options=options)
+
+driver.get(url)
+
+userXpath='/html/body/div[1]/div[1]/div/div[2]/div/div[2]/div/div[1]/form/fieldset/div[1]/input[1]'
+
+driver.find_element_by_xpath(userXpath).send_keys('캠핑')
