@@ -1,0 +1,12 @@
+from selenium import webdriver
+
+url='http://www.naver.com'
+options=webdriver.ChromeOptions()
+options.add_argument('window-size=1024,768')
+driver=webdriver.Chrome('C:\Anaconda3\chromedriver_win32/chromedriver.exe', options=options)
+
+driver.get(url)
+
+driver.save_screenshot('C:\BigData\work\Python_Bigdata/ch02/website.png')
+
+driver.quit()
