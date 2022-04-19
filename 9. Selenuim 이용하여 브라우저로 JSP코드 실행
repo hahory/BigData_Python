@@ -1,0 +1,13 @@
+from selenium import webdriver
+
+url='https://google.com'
+options=webdriver.ChromeOptions()
+#브라우저를 통해 100+5를 계산하는 것이나 굳이 브라우저를 띄울 필요가 없는 계산이므로 headless처리하여 브라우저는 보이지 않도록 함
+options.add_argument('-headless')
+
+driver=webdriver.Chrome('C:\Anaconda3\chromedriver_win32/chromedriver.exe', options=options)
+
+driver.get(url)
+
+r=driver.execute_script('return 100+50')
+print(r)
