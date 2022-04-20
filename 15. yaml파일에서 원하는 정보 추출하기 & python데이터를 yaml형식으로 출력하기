@@ -1,0 +1,52 @@
+#yaml 설치 여부 확인은 pip show pyyaml
+#yaml 설치는 pip install pyyaml
+import yaml
+
+#yaml 정의하기
+yaml_str='''
+Date: 2022-04-20
+Pricelist:
+    -
+        item_id: 1000
+        name: Banana
+        color: yellow
+        price: 800
+    -
+        item_id: 1100
+        name: Apple
+        color: Rea
+        price: 1000
+    -
+        item_id: 1200
+        name: Orange
+        color: orange
+        price: 1200
+'''
+
+#yaml 분석하기
+data=yaml.safe_load(yaml_str)
+
+#이름과 가격 출력하기
+for item in data['Pricelist']:
+    print(item['name'], item['price'])
+    
+------------------------------------------------------------
+import yaml
+customer=[
+    {'name':'Inseong', 'age':24, 'gender':'man'},
+    {'name':'Inseo', 'age':21, 'gender':'woman'},
+    {'name':'Insik', 'age':20, 'gender':'woman'},
+    {'name':'Inseon', 'age':25, 'gender':'man'}
+]
+
+#python데이터를 yaml데이터로 변환하기
+yaml_str=yaml.dump(customer)
+print(yaml_str)
+print('___ ___ ___')
+
+#yaml데이터를 python데이터로 변환하기
+data=yaml.safe_load(yaml_str)
+
+#이름 출력하기
+for person in data:
+    print(person['name'])
