@@ -1,0 +1,24 @@
+#'&<이름>'형태로 변수를 선언하고 '*<이름>'형태로 참조
+
+#-과 : 뒤는 반드시 공백을 주어야 함
+import yaml
+
+#문자열로 yaml을 정의합니다.
+yaml_str='''
+color_def:
+    - &color1 '##ff0000'
+    - &color2 '##00ff00'
+    - &color3 '##0000ff'
+color:
+    title: *color1
+    body: *color2
+    link: *color3
+'''
+
+#yaml 데이터 분석하기
+data=yaml.safe_load(yaml_str)
+
+#별칭이 전개되었는지 테스트하기
+print('title=', data['color']['title'])
+print('body=', data['color']['body'])
+print('link=', data['color']['link'])
