@@ -1,0 +1,38 @@
+#   http://www.index.go.kr/potal/main/EachDtlPageDetail.do?idx_cd=1041
+#   위사이트에서 엑셀로 저장후 엑셀프로그램으로 확장자를 .xslx 로 저장후 실행
+import openpyxl
+
+# 엑셀 파일 열기く --- (※1)
+filename = "ch03/stat_104102.xlsx"
+book = openpyxl.load_workbook(filename)
+
+# 맨 앞의 시트 추출하기 --- (※2)
+sheet = book.worksheets[0]
+
+# 시트의 각 행을 순서대로 추출하기(도시명(row[0])과 2020년 인구수(row[9])만 추출)
+data = []
+for row in sheet.rows:
+    data.append([
+        row[0].value,
+        row[9].value
+    ])
+
+# 필요없는 줄(헤더, 연도, 계, 아래 설명문) 제거하기
+# data[0]을 지우고 나면 data[1]이 [0]이 되므로 결과적으로 [0]만 4번 지움 or del data[3]~data[0]까지 역순으로 지울 수도 있음
+for i in range(0, 4):
+    del data[0]
+for i in range(0, 2):
+    del data[17]
+
+#숫자에 단위표시 쉼표를 지워줌
+for dt in data:    
+    dt[1] = int(dt[i].replace(',',''))
+    
+# 데이터를 인구 순서로 정렬합니다.
+# data = sorted(data, key=lambda x:x[1], reverse=True)-reverse를 쓰면 <인구가 많은 지역 5>가 표시될 것임
+data = sorted(data, key=lambda x:x[1])
+
+# 하위 5위를 출력합니다.
+for i, a in enumerate(data):
+    if (i >= 5): break
+    print(i+1, a[0], int(a[1]))
