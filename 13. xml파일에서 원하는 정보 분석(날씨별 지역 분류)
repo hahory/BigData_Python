@@ -1,5 +1,8 @@
+#HTML 및 XML 문서를 구문 분석하기 위한 패키지
 from bs4 import BeautifulSoup
+#URL(대부분 HTTP)을 여는 데 도움이 되는 함수와 클래스를 정의
 import urllib.request as req
+#파일/디렉토리 경로와 관련된 많은 함수를 제공
 import os.path
 
 #xml 다운로드
