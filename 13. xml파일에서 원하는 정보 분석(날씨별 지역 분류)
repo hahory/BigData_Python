@@ -1,0 +1,31 @@
+from bs4 import BeautifulSoup
+import urllib.request as req
+import os.path
+
+#xml 다운로드
+#프로그램을 실행할 때마다 xml파일을 내려받으면 서버에 부하를 줄 수 있으므로 req.urlretrieve()를 사용해 처음 실행할 때 로컬 파일로 저장하고, 두번째 이후 실행에서는 저장한 데이터를 사용
+url='http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108'
+savename='forecast.xml'
+if not os.path.exists(savename):
+    req.urlretrieve(url, savename)
+
+#BeautifulSoup 인스턴스 생성하여 분석하기
+xml=open(savename, 'r', encoding='utf-8').read()
+#html.parser대신 xml을 분석하는 lxml을 써도 됨(태그 이름이 소문자로 변환되므로 html.parser나 lxml 모두 요소에 접근시 소문자로 입력해야 함에 유의)
+#soup=BeautifulSoup(xml, 'lxml')
+soup=BeautifulSoup(xml, 'html.parser')
+
+#각 지역 확인하기
+info={}
+for location in soup.find_all('location'):
+    name=location.find('city').string
+    weather=location.find('wf').string
+    if not (weather in info):
+        info[weather]=[]
+    info[weather].append(name)
+
+#각 지역의 날씨를 구분해서 출력하기
+for weather in info.keys():
+    print('+', weather)
+    for name in info[weather]:
+        print('|-', name)
